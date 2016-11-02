@@ -7,3 +7,10 @@ or simply running within the folder:
 ```
 python /address/to/noteTeX/noteTeX.py
 ```
+
+## Prerequisites
+For noteTeX to work you require `latexmk` to be installed on your machine. `pickle` is used to create temporary files containing the PDF titles and captions in dictionaries
+
+## Future Development
+
+noteTeX will soon have the feature to add existing TeX files (such as tables) into the report.
