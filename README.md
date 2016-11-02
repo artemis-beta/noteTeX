@@ -13,4 +13,6 @@ For noteTeX to work you require `latexmk` to be installed on your machine. `pick
 
 ## Future Development
 
-noteTeX will soon have the feature to add existing TeX files (such as tables) into the report.
++ noteTeX will soon have the feature to add existing TeX files (such as tables) into the report.
+
++ Additional function to allow the user to attach their own captions (currently noteTeX uses the filename).
