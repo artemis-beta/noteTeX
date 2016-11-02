@@ -11,6 +11,9 @@
 *.fot
 *.cb
 *.cb2
+*.tex
+*.fdb_latexmk
+*.cpt
 
 ## Intermediate documents:
 *.dvi
