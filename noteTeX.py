@@ -40,9 +40,6 @@ class noteTeX:
 		self.file.write("\n\\includegraphics[width=\\textwidth]{{{image}}}\n".format(image=image))
 		self.file.write("\\end{figure}\n")
 
-#	def addTeXFile(self):
-
-
 	def assembleReport(self):
 		
 		self.file.write(preamble)
