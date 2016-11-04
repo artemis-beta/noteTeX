@@ -3,7 +3,7 @@ import os
 from tabulate import tabulate
 version = "v0.1.0"
 
-preamble = "\\documentclass{article}\n\\usepackage{graphicx}\n\\usepackage{cprotect}\n\\begin{document}\n"
+preamble = "\\documentclass{article}\n\\usepackage[space]{grffile}\n\\usepackage{graphicx}\n\\usepackage{cprotect}\n\\begin{document}\n"
 end = "\\end{document}\n"
 
 class noteTeX:
