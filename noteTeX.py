@@ -26,13 +26,20 @@ class noteTeX:
 				print "Ignoring file %s which is an exception" % filename
 				continue
 			if filename.endswith(".pdf"):
-				print "Adding file %s to report" % filename
+				print "Adding PDF file %s to report" % filename
 				dict_ = {}
+				dict_['TYPE'] = "PDF"
 				dict_['IMAGE'] = filename
 				if len(self.captions) <= ID or self.captions[ID] == "":
 					dict_['CAPTION'] = autocapt
 				else:
 					dict_['CAPTION'] = self.captions[ID]
+				self.elements[ID] = dict_
+			if filename.endswith(".tex"):
+				print "Adding TeX file %s to report" % filename
+				dict_= {}
+				dict_['TYPE'] = "TeX"
+				dict_['TeX'] = filename
 				self.elements[ID] = dict_
 			ID += 1
 	def addTeXGraphic(self,image,caption):
@@ -40,12 +47,18 @@ class noteTeX:
 		self.file.write("\n\\includegraphics[width=\\textwidth]{{{image}}}\n".format(image=image))
 		self.file.write("\\end{figure}\n")
 
+	def addTeXFile(self,file_):
+		self.file.write("\\input{{{file_}}}\n".format(file_=file_))
+
 	def assembleReport(self):
 		
 		self.file.write(preamble)
 		for ID in self.elements:
 			assert self.elements[ID],"ERROR: Failed to Load Dictionary Item"
-			self.addTeXGraphic(self.elements[ID]['IMAGE'],self.elements[ID]['CAPTION'])
+			if self.elements[ID]['TYPE'] == "PDF":
+				self.addTeXGraphic(self.elements[ID]['IMAGE'],self.elements[ID]['CAPTION'])
+			if self.elements[ID]['TYPE'] == "TeX":
+				self.addTeXFile(self.elements[ID]['TeX'])
 		self.file.write(end)
 	
 	def removeFiles(self,filename):
@@ -58,10 +71,15 @@ class noteTeX:
 	def printElements(self):
 		table = []
 		for ID in self.elements:
+			if self.elements[ID]['TYPE'] == "PDF":
+				key = "IMAGE"
+				caption = self.elements[ID]['CAPTION']
+			if self.elements[ID]['TYPE'] == "TeX":
+				key = "TeX"
+				caption = "N/A"
+			table.append([ID,self.elements[ID][key],caption])
 
-			table.append([ID,self.elements[ID]['IMAGE'],self.elements[ID]['CAPTION']])
-
-		print tabulate(table,headers=["ID","Image File","Caption"],tablefmt="fancy_grid")
+		print tabulate(table,headers=["ID","File","Caption"],tablefmt="fancy_grid")
 
 
 	def compileLaTeX(self):
@@ -91,6 +109,6 @@ class noteTeX:
 
 if __name__ == "__main__":
 
-	report = noteTeX(captions=["1","2","3","4","5","6"])
+	report = noteTeX()
 	report.build()
 	report.printElements()

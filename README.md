@@ -16,9 +16,10 @@ report = noteTeX()
 report.printElements()
 ```
 
+## TeX Files
+
+noteTeX can import existing LaTeX files, however note that these should not have any preamble, i.e. no`\begin{document}`, `\end{document}` or `usepackage{}` statements etc as they are imported using the `\import{file}` command.
+
 ## Prerequisites
 For noteTeX to work you require `latexmk` to be installed on your machine. `tabulate` is used to produce the table of elements contained, these are printed using the `printElements()` function.
 
-## Future Development
-
-+ noteTeX will soon have the feature to add existing TeX files (such as tables) into the report.
